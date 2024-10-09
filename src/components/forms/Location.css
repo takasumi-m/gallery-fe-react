@@ -1,0 +1,18 @@
+.location-container {
+    display: flex;
+    align-items: center;
+}
+
+.location-container label {
+    margin-right: 10px;
+    font-weight: bold;
+    width: 120px;
+}
+
+.location-container input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

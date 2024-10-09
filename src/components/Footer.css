@@ -1,0 +1,38 @@
+/* Footer.css */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-nav li {
+    margin: 0 15px; /* アイコン間のスペース */
+}
+
+.footer-nav img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s;
+}
+
+.footer-nav img:hover {
+    transform: scale(1.2);
+}
+
+.footer-nav a {
+    display: inline-block;
+}

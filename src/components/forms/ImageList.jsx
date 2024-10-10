@@ -11,11 +11,14 @@ const ImageListComponent = ({ onChange }) => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleImageChange = (event) => {
+        setErrorMessage("");
+
         const addImageList = Array.from(event.target.files);
+        event.target.value = '';
 
         // 画像の合計数がmaxFileNumを超える場合はエラーメッセージを表示
         if (uploadedImageList.length + addImageList.length > maxFileNum) {
-            setErrorMessage(`最大で${maxFileNum}枚の画像しかアップロードできません。`);
+            setErrorMessage("最大で${maxFileNum}枚の画像しかアップロードできません。");
             return;
         }
 
@@ -23,18 +26,21 @@ const ImageListComponent = ({ onChange }) => {
         const uploadedImageListSize = uploadedImageList.reduce((acc, image) => acc + image.size, 0);
         const addImageListSize = addImageList.reduce((acc, file) => acc + file.size, 0);
         if (uploadedImageListSize + addImageListSize > maxTotalSize) {
-            setErrorMessage(`合計ファイルサイズは${maxTotalSize / (1024 * 1024)}MB以内である必要があります。`);
+            setErrorMessage("合計ファイルサイズは${maxTotalSize / (1024 * 1024)}MB以内である必要があります。");
             return;
         }
-
-        setErrorMessage('');
         const addImageMapList = addImageList.map(image => ({ url: URL.createObjectURL(image), size: image.size }));
-        setUploadedImageList(prevImageMapList => [...prevImageMapList, ...addImageMapList]);
-        onChange(prevImageMapList => [...prevImageMapList, ...addImageMapList]);
+        const newImageList = [...uploadedImageList, ...addImageMapList];
+        console.log(newImageList);
+        setUploadedImageList(newImageList);
+        onChange(newImageList);
     };
 
     const handleRemoveImage = (index) => {
-        setErrorMessage('');
+        setErrorMessage("");
+
+        const imageToRemove = uploadedImageList[index];
+        URL.revokeObjectURL(imageToRemove.url); 
         const newImageList = uploadedImageList.filter((_, i) => i !== index);
         setUploadedImageList(newImageList);
         onChange(newImageList);

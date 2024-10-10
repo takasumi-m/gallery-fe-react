@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Caption.css';
-import { MAX_TEXTAREA_BYTE_LENGTH } from '../../utils/constants';
+import { MAX_TEXTAREA_BYTE } from '../../utils/constants';
 
 const CaptionComponent = ({ onChange }) => {
 
@@ -12,8 +12,8 @@ const CaptionComponent = ({ onChange }) => {
         const inputValue = event.target.value;
         const byteLength = new Blob([inputValue]).size;
 
-        if (byteLength > MAX_TEXTAREA_BYTE_LENGTH) { // 64KB
-            setErrorMessage(`入力できるのは${MAX_TEXTAREA_BYTE_LENGTH / 1024}KBまでです`);
+        if (byteLength > MAX_TEXTAREA_BYTE) { // 64KB
+            setErrorMessage(`入力できるのは${MAX_TEXTAREA_BYTE / 1024}KBまでです`);
             return;
         } else {
             setErrorMessage("");

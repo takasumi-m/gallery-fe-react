@@ -8,7 +8,7 @@ import Location from '../components/forms/Location';
 import TagList from '../components/forms/TagList';
 import DeletePassword from '../components/forms/DeletePassword';
 import ImageList from '../components/forms/ImageList';
-import { MAX_TEXTAREA_KB, MAX_TEXTAREA_BYTE, API_BASE_URL } from '../utils/constants';
+import { MAX_TEXTAREA_KB, MAX_TEXTAREA_BYTE, MAX_TEXT_LENGTH, API_BASE_URL } from '../utils/constants';
 
 const Post = () => {
 

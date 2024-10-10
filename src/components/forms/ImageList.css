@@ -25,9 +25,16 @@
 }
 
 /* エラーメッセージ */
-.image-upload-container .image-upload-container-error-message {
-    color: red;
+.image-upload-container-error-message {
+    color: #b71c1c;
+    background-color: #ffcdd2;
+    border: 1px solid #b71c1c;
+    padding: 2px;
+    border-radius: 4px;
     margin: 5px 0;
+    font-size: 13px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* 画像プレビューのコンテナ */

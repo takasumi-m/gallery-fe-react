@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './ImageList.css';
-import { MAX_FILE_NUM, MAX_TOTAL_FILE_SIZE } from '../../utils/constants';
+import { MAX_FILE_NUM, MAX_TOTAL_FILE_SIZE_MB, MAX_TOTAL_FILE_SIZE_BYTE } from '../../utils/constants';
 
 const ImageListComponent = ({ onChange }) => {
 
@@ -16,7 +16,7 @@ const ImageListComponent = ({ onChange }) => {
 
         // 画像の合計数がMAX_FILE_NUMを超える場合はエラーメッセージを表示
         if (uploadedImageList.length + addImageList.length > MAX_FILE_NUM) {
-            setErrorMessage(`最大で${MAX_FILE_NUM}枚の画像しかアップロードできません。`);
+            setErrorMessage(`ファイルは${MAX_FILE_NUM}枚まで選択可能です。`);
             return;
         }
 
@@ -56,12 +56,12 @@ const ImageListComponent = ({ onChange }) => {
                         style={{ display: 'none' }}
                     />
                 </label>
-                {errorMessage.length > 0 && (
-                    <div className='image-upload-container-error-message'>
-                        <p>{errorMessage}</p>
-                    </div>
-                )}
             </div>
+            {errorMessage.length > 0 && (
+                <div className='image-upload-container-error-message'>
+                    <p>{errorMessage}</p>
+                </div>
+            )}
             <div className="image-preview-container">
                 {uploadedImageList.map((image, index) => (
                     <div key={index}>

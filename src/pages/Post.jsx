@@ -6,6 +6,7 @@ import Caption from '../components/forms/Caption';
 import Location from '../components/forms/Location';
 import TagList from '../components/forms/TagList';
 import DeletePassword from '../components/forms/DeletePassword';
+import ImageList from '../components/forms/ImageList';
 
 const Post = () => {
     // form data
@@ -25,6 +26,7 @@ const Post = () => {
     return (
         <div className="post-container">
             <div className="form-container">
+                <ImageList onChange={(value) => handleChange('imageList', value)} />
                 <Caption onChange={(value) => handleChange('caption', value)} />
                 <Location onChange={(value) => handleChange('location', value)} />
                 <TagList onChange={(value) => handleChange('tagList', value)} />

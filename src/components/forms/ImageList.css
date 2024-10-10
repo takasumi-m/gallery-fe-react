@@ -1,0 +1,82 @@
+.image-upload-container {
+    display: flex;
+    justify-content: flex-end; /* 右側に配置 */
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+/* カスタムファイルアップロードボタン */
+.image-upload-container .image-upload-button {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.image-upload-container .image-upload-button:hover {
+    background-color: #45a049;
+}
+
+/* エラーメッセージ */
+.image-upload-container .image-upload-container-error-message {
+    color: red;
+    margin: 5px 0;
+}
+
+/* 画像プレビューのコンテナ */
+.image-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2px;
+}
+
+/* 画像プレビューのアイテム */
+.image-preview-container div {
+    position: relative;
+    display: inline-block;
+    margin: 2px;
+}
+
+/* プレビュー画像のスタイル */
+.image-preview-container img {
+    max-width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    background: #f9f9f9;
+}
+
+/* 削除ボタンのスタイル */
+.image-preview-container .remove-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: grey;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 0;
+    transition: background-color 0.3s;
+}
+
+.image-upload-container .image-preview-container .remove-button:hover {
+    background-color: red;
+}

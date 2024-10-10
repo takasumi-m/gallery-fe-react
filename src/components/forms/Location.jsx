@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Location.css';
 
-const LocationComponent = ({ value, onChange }) => {
+const LocationComponent = ({ onChange }) => {
+
+    const [location, setLocation] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -13,6 +15,7 @@ const LocationComponent = ({ value, onChange }) => {
             return;
         }
         setErrorMessage("");
+        setLocation(inputValue);
         onChange(inputValue);
     };
 
@@ -21,9 +24,9 @@ const LocationComponent = ({ value, onChange }) => {
             <div className="location-container">
                 <div className="location-container-input">
                     <label htmlFor="location">Location</label>
-                    <input type="text" id="location" name="location" value={value} onChange={handleChange}/>
+                    <input type="text" id="location" name="location" value={location} onChange={handleChange}/>
                 </div>
-                {errorMessage && (
+                {errorMessage.length > 0 && (
                     <div className='location-container-error-message'>
                         <p>{errorMessage}</p>
                     </div>
@@ -34,8 +37,7 @@ const LocationComponent = ({ value, onChange }) => {
 };
 
 LocationComponent.propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
 };
 
 const Location = React.memo(LocationComponent);

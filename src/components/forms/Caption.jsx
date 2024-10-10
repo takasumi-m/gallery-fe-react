@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Caption.css';
 
-const CaptionComponent = ({ value, onChange }) => {
+const CaptionComponent = ({ onChange }) => {
+
+    const [caption, setCaption] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -13,9 +15,11 @@ const CaptionComponent = ({ value, onChange }) => {
         if (byteLength > 65536) { // 64KB = 65536 bytes
             setErrorMessage("入力できるのは64KBまでです");
             return;
+        } else {
+            setErrorMessage("");
         }
 
-        setErrorMessage("");
+        setCaption(inputValue);
         onChange(inputValue);
     };
 
@@ -24,9 +28,9 @@ const CaptionComponent = ({ value, onChange }) => {
             <div className="caption-container">
                 <div className="caption-container-input">
                     <label htmlFor="caption">Caption</label>
-                    <textarea id="caption" name="caption" value={value} onChange={handleChange}/>
+                    <textarea id="caption" name="caption" value={caption} onChange={handleChange}/>
                 </div>
-                {errorMessage && (
+                {errorMessage.length > 0 && (
                     <div className='caption-container-error-message'>
                         <p>{errorMessage}</p>
                     </div>
@@ -37,8 +41,7 @@ const CaptionComponent = ({ value, onChange }) => {
 };
 
 CaptionComponent.propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
 };
 
 const Caption = React.memo(CaptionComponent);

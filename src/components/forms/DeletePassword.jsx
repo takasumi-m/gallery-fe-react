@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './DeletePassword.css';
 
-const DeletePasswordComponent = ({ value, onChange }) => {
+const DeletePasswordComponent = ({ onChange }) => {
+
+    const [deletepassword, setDeletePassword] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -13,6 +15,7 @@ const DeletePasswordComponent = ({ value, onChange }) => {
             return;
         }
         setErrorMessage("");
+        setDeletePassword(inputValue);
         onChange(inputValue);
     };
 
@@ -21,9 +24,9 @@ const DeletePasswordComponent = ({ value, onChange }) => {
             <div className="deletepassword-container">
                 <div className="deletepassword-container-input">
                     <label htmlFor="deletepassword">DeletePassword</label>
-                    <input type="text" id="deletepassword" name="deletepassword" value={value} onChange={handleChange}/>
+                    <input type="text" id="deletepassword" name="deletepassword" value={deletepassword} onChange={handleChange}/>
                 </div>
-                {errorMessage && (
+                {errorMessage.length > 0 && (
                     <div className='deletepassword-container-error-message'>
                         <p>{errorMessage}</p>
                     </div>
@@ -34,8 +37,7 @@ const DeletePasswordComponent = ({ value, onChange }) => {
 };
 
 DeletePasswordComponent.propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
 };
 
 const DeletePassword = React.memo(DeletePasswordComponent);

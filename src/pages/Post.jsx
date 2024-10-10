@@ -4,35 +4,32 @@ import './Post.css';
 // forms
 import Caption from '../components/forms/Caption';
 import Location from '../components/forms/Location';
-import Tag from '../components/forms/Tag';
+import TagList from '../components/forms/TagList';
 import DeletePassword from '../components/forms/DeletePassword';
-import ImageUpload from '../components/forms/ImageUpload'; 
-// utils
-import ErrorMessage from '../components/utils/ErrorMessage';
 
 const Post = () => {
     // form data
     const [formData, setFormData] = useState({
         caption: '',
         location: '',
-        tag: '',
-        deletePassword: ''
+        tagList: [],
+        deletePassword: '' ,
+        imageList: []
     });
-    // image data
-    const [selectedImageList, setSelectedImageList] = useState([]);
-    // error message
-    const [errorMessage, setErrorMessage] = useState('');
+    
+    const handleChange = (field, value) => {
+        setFormData(prevData => ({ ...prevData, [field]: value }));
+    };
+    
     
     return (
-        <div class="post-container">
+        <div className="post-container">
             <div className="form-container">
-                <Caption value={formData.caption} onChange={(value) => setFormData(prevData => ({ ...prevData, caption: value }))}/>
-                <Location value={formData.location} onChange={(value) => setFormData(prevData => ({ ...prevData, location: value }))}/>
-                <Tag value={formData.tag} onChange={(value) => setFormData(prevData => ({ ...prevData, tag: value }))}/>
-                <DeletePassword value={formData.deletePassword} onChange={(value) => setFormData(prevData => ({ ...prevData, deletePassword: value }))}/>
+                <Caption onChange={(value) => handleChange('caption', value)} />
+                <Location onChange={(value) => handleChange('location', value)} />
+                <TagList onChange={(value) => handleChange('tagList', value)} />
+                <DeletePassword onChange={(value) => handleChange('deletePassword', value)} />
             </div>
-
-            <ErrorMessage errorMessage={errorMessage}/>
         </div>
     );
 };

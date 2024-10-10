@@ -15,3 +15,42 @@
     gap: 15px;
     margin-bottom: 0px;
 }
+
+/* Error message container */
+.post-container .post-container-error-message {
+    padding-left: 130px;
+}
+
+/* Error message styling */
+.post-container .post-container-error-message p {
+    color: #b71c1c;
+    background-color: #ffcdd2;
+    border: 1px solid #b71c1c;
+    padding: 5px;
+    border-radius: 4px;
+    margin: 5px 0;
+    font-size: 13px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-container .post-container-submit-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.post-container .post-container-submit-button button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.post-container .post-container-submit-button button:hover {
+    background-color: #45a049;
+}

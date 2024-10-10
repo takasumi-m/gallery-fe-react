@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './DeletePassword.css';
+import { MAX_TEXT_LENGTH } from '../../utils/constants';
 
 const DeletePasswordComponent = ({ onChange }) => {
 
     const [deletepassword, setDeletePassword] = useState('');
-
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = (event) => {
         const inputValue = event.target.value;
-        if (inputValue.length > 255) {
-            setErrorMessage("入力できるのは255文字までです");
+        if (inputValue.length > MAX_TEXT_LENGTH) {
+            setErrorMessage(`入力できるのは${MAX_TEXT_LENGTH}文字までです`);
             return;
         }
         setErrorMessage("");

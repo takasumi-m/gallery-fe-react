@@ -1,18 +1,39 @@
-.caption-container {
+/* Container for caption input */
+.caption-container .caption-container-input {
     display: flex;
     align-items: center;
 }
 
-.caption-container label {
+/* Label styling */
+.caption-container .caption-container-input label {
     margin-right: 10px;
     font-weight: bold;
     width: 120px;
 }
 
-.caption-container input[type="text"] {
+/* Input field styling */
+.caption-container .caption-container-input textarea {
     flex: 1;
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* Error message container */
+.caption-container .caption-container-error-message {
+    padding-left: 130px;
+}
+
+/* Error message styling */
+.caption-container .caption-container-error-message p {
+    color: #b71c1c;
+    background-color: #ffcdd2;
+    border: 1px solid #b71c1c;
+    padding: 5px;
+    border-radius: 4px;
+    margin: 5px 0;
+    font-size: 13px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

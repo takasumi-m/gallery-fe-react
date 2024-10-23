@@ -1,5 +1,6 @@
 import React, { useState }  from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 // css
 import './Post.css';
 // forms
@@ -19,8 +20,8 @@ const Post = () => {
         tagList: [],
         deletePassword: '' ,
         imageList: []
-    });
-    const [errorMessageList, setErrorMessageList] = useState([]);
+    });    const [errorMessageList, setErrorMessageList] = useState([]);
+    const navigate = useNavigate();
     
     const handleChange = (field, value) => {
         setFormData(prevData => ({ ...prevData, [field]: value }));
@@ -42,16 +43,14 @@ const Post = () => {
         
         const formPayload = new FormData();
         formPayload.append('requestJson', JSON.stringify(requestJson));
-        console.log('imageList:', formData.imageList);
         formData.imageList.forEach((image) => {
             formPayload.append('fileList', image.file);
         });
 
         try {
-            const response = await axios.post(`${API_BASE_URL}/post`, formPayload, {});
+            await axios.post(`${API_BASE_URL}/post`, formPayload, {});
     
-            console.log('アップロード成功:', response.data);
-            // TODO 画面遷移
+            navigate('/');
         } catch (error) {
             setErrorMessageList(['投稿に失敗しました']);
         }

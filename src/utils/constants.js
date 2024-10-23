@@ -1,5 +1,5 @@
 export const MAX_FILE_NUM = 4;
-export const MAX_TOTAL_FILE_SIZE_MB = 10; // 10MB
+export const MAX_TOTAL_FILE_SIZE_MB = 100; // 10MB
 export const MAX_TOTAL_FILE_SIZE_BYTE = MAX_TOTAL_FILE_SIZE_MB * 1024 * 1024; // 10MB
 
 export const MAX_TEXTAREA_KB = 64;  // 64KB

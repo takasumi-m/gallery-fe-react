@@ -4,11 +4,10 @@ import './TagList.css';
 import { MAX_TEXT_LENGTH } from '../../utils/constants';
 
 const TagListComponent = ({ onChange }) => {
-
     const [tag, setTag] = useState('');
     const [tagList, setTagList] = useState([]);
-
     const [errorMessage, setErrorMessage] = useState('');
+    const [isComposing, setIsComposing] = useState(false); // IMEの入力中かどうか
 
     const handleChange = (event) => {
         const inputValue = event.target.value;
@@ -17,12 +16,15 @@ const TagListComponent = ({ onChange }) => {
             return;
         }
 
-        setErrorMessage("");
+        setErrorMessage('');
         setTag(inputValue);
     };
 
     const handleKeyDown = (event) => {
         const trimmedTag = event.target.value.trim();
+
+        // IME入力中は処理を中断
+        if (isComposing) return;
 
         if ((event.key === ' ' || event.key === '　') && trimmedTag) {
             if (!tagList.includes(trimmedTag)) {
@@ -41,32 +43,42 @@ const TagListComponent = ({ onChange }) => {
         onChange(newTagList); // 更新されたタグリストを親に渡す
     };
 
+    // IME入力の開始と終了を検知
+    const handleCompositionStart = () => setIsComposing(true);
+    const handleCompositionEnd = () => setIsComposing(false);
+
     return (
         <>
             <div className="tag-container">
                 <div className="tag-container-input">
                     <label htmlFor="tag">Tag</label>
-                    <input 
+                    <input
                         type="text"
-                        id="tag" 
-                        name="tag" 
+                        id="tag"
+                        name="tag"
                         placeholder="タグを入力してスペースで追加"
-                        value={tag} 
+                        value={tag}
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
+                        onCompositionStart={handleCompositionStart}
+                        onCompositionEnd={handleCompositionEnd}
                     />
                 </div>
                 {errorMessage.length > 0 && (
-                    <div className='tag-container-error-message'>
+                    <div className="tag-container-error-message">
                         <p>{errorMessage}</p>
                     </div>
                 )}
             </div>
-            <div className='taglist-container'>
+            <div className="taglist-container">
                 {tagList.map((tag, index) => (
                     <span key={index} className="tag-item">
                         {tag}
-                        <button type="button" className="remove-tag-button" onClick={() => handleRemoveTag(index)}>
+                        <button
+                            type="button"
+                            className="remove-tag-button"
+                            onClick={() => handleRemoveTag(index)}
+                        >
                             &times;
                         </button>
                     </span>

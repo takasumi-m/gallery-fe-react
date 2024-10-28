@@ -13,7 +13,7 @@ const Home = () => {
         try {
             const response = await fetch(`http://localhost:8080/api/posts/${post.postId}/images`);
             if (response.status === 404) {
-                console.warn(`追加画像が見つかりません: postId=${post.postId}`);
+                console.log(`追加画像が見つかりません: postId=${post.postId}`);
                 return [];
             }
             if (!response.ok) throw new Error('追加画像の取得に失敗しました: ' + post.postId);
@@ -84,6 +84,35 @@ const Home = () => {
         }
     }, [fetchImage]);
 
+    const loadMorePosts = useCallback(async () => {
+        try {
+            // 現在の postList の最後の投稿日時を取得
+            const lastPost = postList[postList.length - 1]; 
+            console.log('lastPost: ', lastPost);    
+            const lastPostDatetime = lastPost ? lastPost.postDatetime : '';
+    
+            // APIをクエリパラメータ付きで呼び出し
+            const response = await fetch(`http://localhost:8080/api/posts?postDatetime=${lastPostDatetime}`);
+            if (!response.ok) throw new Error('追加の投稿情報の取得に失敗しました');
+    
+            const rowData = await response.json();
+            const newPosts = rowData.map((post) => ({
+                ...post,
+                imageUrl: null,
+                images: [],
+            }));
+    
+            // 既存の postList に新しい投稿を追加
+            setPostList((prevList) => [...prevList, ...newPosts]);
+    
+            // 新しい投稿の画像を取得
+            await Promise.all(newPosts.map((post) => fetchImage(post)));
+        } catch (err) {
+            console.error('追加投稿の取得に失敗しました: ', err.message);
+            setErrorMessageList((prev) => [...prev, err.message]);
+        }
+    }, [postList, fetchImage]);
+
     const handleImageClick = (post) => {
         setSelectedPost(post);
         setDisplayedImage(post.imageUrl);
@@ -119,20 +148,25 @@ const Home = () => {
                 </div>
             )}
 
-            <div className="post-list-container">
-                {postList.map((post) => (
-                    <div
-                        className="post-item"
-                        key={post.postId}
-                        onClick={() => handleImageClick(post)}
-                    >
-                        {post.imageUrl ? (
-                            <img src={post.imageUrl} alt={post.caption} />
-                        ) : (
-                            <p>画像を読み込み中...</p>
-                        )}
-                    </div>
-                ))}
+            <div className="post-home-container">
+                <div className="post-list-container">
+                    {postList.map((post) => (
+                        <div
+                            className="post-item"
+                            key={post.postId}
+                            onClick={() => handleImageClick(post)}
+                        >
+                            {post.imageUrl ? (
+                                <img src={post.imageUrl} alt={post.caption} />
+                            ) : (
+                                <p>画像を読み込み中...</p>
+                            )}
+                        </div>
+                    ))}
+                </div>
+                <button className="load-more-button" onClick={() => loadMorePosts()}>
+                    もっと読み込む
+                </button>
             </div>
 
             {isModalOpen && selectedPost && (
